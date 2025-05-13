@@ -14,17 +14,17 @@ const AchievementsSection = () => {
     {
       title: "Mentor for Skill Competition 2024",
       description: "Recognized for contribution and expertise as Mentor for the Skill Competition 2024 by Jharkhand Skill Development Mission Society.",
-      image: "/JSDMS.jpg"
+      image: "/JSDMS.jpeg"
     },
     {
       title: "NX Training Program",
       description: "Successfully completed a training program on NX in 2022 at Jharkhand Government Tool Room, Ranchi.",
-      image: "/NX.jpg"
+      image: "/NX.jpeg"
     },
     {
       title: "German Language Youth Camp",
       description: "Participated in the German Language youth camp 'Hallo Deutsch' organized by German Language Centre, Patna under the aegis of Goethe-Institut/Max Mueller Bhavan Kolkata in 2016.",
-      image: "/German.jpg"
+      image: "/German.jpeg"
     }
   ];
 
