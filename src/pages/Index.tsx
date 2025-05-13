@@ -88,7 +88,7 @@ const Index = () => {
         </nav>
 
         <Avatar className="h-20 w-20 rounded-full absolute top-1/2 right-6 transform -translate-y-1/2">
-          <img src="/Ansh.jpeg" alt="Ansh Babu" className="object-cover h-full w-full rounded-full" />
+          <img src="/Ansh1.jpeg" alt="Ansh Babu" className="object-cover h-full w-full rounded-full" />
         </Avatar>
 
         <main className="pt-20">
