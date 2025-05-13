@@ -29,18 +29,28 @@ const Background = () => {
       hue: number;
     }
 
-    // Create initial particles
+    // Create initial particles with a more vibrant color palette
     for (let i = 0; i < particleCount; i++) {
+      // Use a wider range of colors for a more cheerful feel
+      const colorRanges = [
+        [260, 310], // Purples and pinks
+        [180, 220], // Cyans and light blues
+        [30, 60],   // Warm yellows and oranges
+      ];
+      
+      const selectedRange = colorRanges[Math.floor(Math.random() * colorRanges.length)];
+      const hue = Math.floor(Math.random() * (selectedRange[1] - selectedRange[0])) + selectedRange[0];
+      
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
         z: Math.random() * 1000,
-        size: Math.random() * 3 + 0.5,
+        size: Math.random() * 3 + 1, // Slightly larger particles
         speedX: Math.random() * 1 - 0.5,
         speedY: Math.random() * 1 - 0.5,
         speedZ: Math.random() * 2,
-        opacity: Math.random() * 0.5 + 0.1,
-        hue: Math.floor(Math.random() * 60) + 220, // Blue to purple hues
+        opacity: Math.random() * 0.6 + 0.2, // Higher opacity for more vibrant colors
+        hue: hue, 
       });
     }
 
@@ -55,10 +65,10 @@ const Background = () => {
 
     // Animation function
     const animate = () => {
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.03)'; // More transparent for brighter background
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       
-      // Create a subtle gradient background
+      // Create a subtle gradient background - more vibrant
       const gradient = ctx.createRadialGradient(
         canvas.width / 2, 
         canvas.height / 2, 
@@ -67,8 +77,8 @@ const Background = () => {
         canvas.height / 2, 
         canvas.width
       );
-      gradient.addColorStop(0, 'rgba(25, 25, 35, 0.03)');
-      gradient.addColorStop(1, 'rgba(10, 10, 20, 0.03)');
+      gradient.addColorStop(0, 'rgba(30, 30, 50, 0.02)');
+      gradient.addColorStop(1, 'rgba(15, 15, 35, 0.02)');
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       
@@ -97,16 +107,26 @@ const Background = () => {
         
         // Reset particles if they go out of bounds or too close to viewer
         if (p.x > canvas.width || p.x < 0 || p.y > canvas.height || p.y < 0 || p.z < 1) {
+          // For reset particles, use the same vibrant color system
+          const colorRanges = [
+            [260, 310], // Purples and pinks
+            [180, 220], // Cyans and light blues
+            [30, 60],   // Warm yellows and oranges
+          ];
+          
+          const selectedRange = colorRanges[Math.floor(Math.random() * colorRanges.length)];
+          const hue = Math.floor(Math.random() * (selectedRange[1] - selectedRange[0])) + selectedRange[0];
+          
           particles[i] = {
             x: Math.random() * canvas.width,
             y: Math.random() * canvas.height,
             z: 1000,
-            size: Math.random() * 3 + 0.5,
+            size: Math.random() * 3 + 1,
             speedX: Math.random() * 1 - 0.5,
             speedY: Math.random() * 1 - 0.5,
             speedZ: Math.random() * 2,
-            opacity: Math.random() * 0.5 + 0.1,
-            hue: Math.floor(Math.random() * 60) + 220,
+            opacity: Math.random() * 0.6 + 0.2,
+            hue: hue,
           };
         }
         
@@ -138,7 +158,7 @@ const Background = () => {
             const connectionOpacity = (1 - dist / 150) * 0.2 * (1 - depth / 200);
             
             ctx.beginPath();
-            ctx.strokeStyle = `hsla(${avgHue}, 80%, 60%, ${connectionOpacity})`;
+            ctx.strokeStyle = `hsla(${avgHue}, 85%, 65%, ${connectionOpacity})`;
             ctx.lineWidth = Math.min(p.size, p2.size) * 0.3;
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
@@ -147,9 +167,10 @@ const Background = () => {
         }
       }
       
-      // Add subtle pulse/glow effect
+      // Add subtle pulse/glow effect - more colorful
       const time = Date.now() * 0.001;
       const glowRadius = Math.sin(time * 0.5) * 50 + 150;
+      const hue = (time * 20) % 360; // Cycling through colors
       const glow = ctx.createRadialGradient(
         mouseX, 
         mouseY, 
@@ -158,8 +179,8 @@ const Background = () => {
         mouseY, 
         glowRadius
       );
-      glow.addColorStop(0, 'rgba(139, 92, 246, 0.08)');
-      glow.addColorStop(1, 'rgba(139, 92, 246, 0)');
+      glow.addColorStop(0, `hsla(${hue}, 90%, 70%, 0.08)`);
+      glow.addColorStop(1, `hsla(${hue}, 90%, 70%, 0)`);
       ctx.fillStyle = glow;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       

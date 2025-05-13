@@ -62,6 +62,16 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// New vibrant colors
+				vibrant: {
+					purple: '#7c3aed',
+					pink: '#f472b6',
+					blue: '#0ea5e9',
+					cyan: '#06b6d4',
+					emerald: '#10b981',
+					amber: '#f59e0b',
+					red: '#ef4444',
 				}
 			},
 			borderRadius: {
@@ -106,12 +116,44 @@ export default {
 						opacity: '1'
 					}
 				},
+				'color-cycle': {
+					'0%': { 
+						color: 'hsl(260, 83%, 58%)' 
+					},
+					'33%': { 
+						color: 'hsl(186, 100%, 42%)' 
+					},
+					'66%': { 
+						color: 'hsl(332, 85%, 65%)' 
+					},
+					'100%': { 
+						color: 'hsl(260, 83%, 58%)' 
+					}
+				},
+				'background-shimmer': {
+					'0%': { 
+						backgroundPosition: '0% 50%' 
+					},
+					'50%': { 
+						backgroundPosition: '100% 50%' 
+					},
+					'100%': { 
+						backgroundPosition: '0% 50%' 
+					}
+				},
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'fade-in': 'fade-in 0.5s ease-out forwards',
 				'scale-in': 'scale-in 0.5s ease-out forwards',
+				'color-cycle': 'color-cycle 8s infinite',
+				'background-shimmer': 'background-shimmer 3s ease infinite',
+			},
+			backgroundImage: {
+				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+				'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+				'gradient-vibrant': 'linear-gradient(to right, #7c3aed, #f472b6, #0ea5e9)',
 			}
 		}
 	},
