@@ -22,7 +22,7 @@ const Footer = () => {
               <Mail className="h-5 w-5" />
             </a>
             <a 
-              href="https://www.linkedin.com/in/anshbabu-281419230"
+              href="https://www.linkedin.com/in/ansh-babu-281419230/"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-white/10 hover:bg-white/20 h-10 w-10 rounded-full flex items-center justify-center transition-colors"

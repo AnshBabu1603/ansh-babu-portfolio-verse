@@ -7,21 +7,15 @@ const ProjectsSection = () => {
   const projects = [
     {
       title: "Face Swap Based Deepfake Detection Tool",
-      description: "Developed a sophisticated deepfake detection tool using Convolutional Neural Networks (CNN) to identify manipulated media content. The system can accurately differentiate between authentic and synthetically generated facial images.",
+      description: "Developed a sophisticated deepfake detection tool using Convolutional Neural Networks (CNN) to identify manipulated media content. The system can accurately differentiate between authentic and synthetically generated facial images. Achieved an impressive 94% accuracy through meticulous dataset refinement and innovative data preprocessing techniques.",
       link: "https://deepfake-vision-shield-other-device.vercel.app",
-      tech: ["Python", "CNN", "Computer Vision", "Deep Learning"]
+      tech: ["Python", "CNN", "Computer Vision", "Deep Learning", "Data Augmentation"]
     },
     {
       title: "AI Based Emotion Detection Music Recommendation System",
       description: "Created a novel music recommendation system that analyzes facial expressions to detect emotions and suggests music based on the user's current emotional state. The system utilizes computer vision techniques for real-time emotion recognition.",
       link: "https://emotive-melody-muse-611b98d7.vercel.app/",
       tech: ["Computer Vision", "Machine Learning", "Emotion Detection", "Python"]
-    },
-    {
-      title: "High Precision CNN Model",
-      description: "Achieved an impressive 94% accuracy in a CNN model through meticulous dataset refinement and innovative data preprocessing techniques. Implemented advanced data augmentation strategies to enhance model generalization and performance.",
-      link: "",
-      tech: ["CNN", "Data Augmentation", "Deep Learning", "Model Optimization"]
     }
   ];
 
@@ -31,7 +25,7 @@ const ProjectsSection = () => {
         <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">Projects</span>
       </h2>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {projects.map((project, index) => (
           <Card 
             key={index} 

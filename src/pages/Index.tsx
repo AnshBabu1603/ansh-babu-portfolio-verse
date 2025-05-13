@@ -74,7 +74,7 @@ const Index = () => {
             <a href="mailto:cool.anshlegend123@gmail.com" className="hover:scale-110 transition-transform" aria-label="Email">
               <Mail className="w-5 h-5" />
             </a>
-            <a href="https://www.linkedin.com/in/anshbabu-281419230" target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-transform" aria-label="LinkedIn">
+            <a href="https://www.linkedin.com/in/ansh-babu-281419230/" target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-transform" aria-label="LinkedIn">
               <Linkedin className="w-5 h-5" />
             </a>
           </div>

@@ -15,9 +15,9 @@ const AboutSection = () => {
           <CardContent className="pt-6">
             <h3 className="text-2xl font-semibold mb-4">Profile</h3>
             <p className="text-gray-300 mb-6">
-              I am a Computer Science Engineering student with a strong background in mechanical engineering through 
-              my Diploma in Tool & Die Making. My passion lies in Machine Learning, Deep Learning, and 
-              Computer Vision, where I've developed several innovative projects.
+              An aspiring AI/ML Engineer fascinated in Artificial Intelligence and Automation. 
+              My passion lies in Machine Learning, Deep Learning, Computer Vision and Critical thinking 
+              through Data Structures and Algorithms. A Geek for exploring new skills and enhancing my existing ones.
             </p>
             
             <div className="space-y-4">
@@ -29,8 +29,8 @@ const AboutSection = () => {
               </div>
               <div className="flex gap-4 items-center">
                 <Linkedin className="h-5 w-5 text-blue-400" />
-                <a href="https://www.linkedin.com/in/anshbabu-281419230" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white">
-                  linkedin.com/in/anshbabu-281419230
+                <a href="https://www.linkedin.com/in/ansh-babu-281419230/" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white">
+                  linkedin.com/in/ansh-babu-281419230/
                 </a>
               </div>
             </div>
