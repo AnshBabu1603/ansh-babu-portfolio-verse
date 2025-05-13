@@ -93,6 +93,7 @@
     @apply bg-background text-foreground;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 }
 
@@ -174,6 +175,30 @@
   -webkit-text-fill-color: transparent;
 }
 
+/* Enhanced 3D animations */
+@keyframes float-3d {
+  0% {
+    transform: translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg);
+  }
+  25% {
+    transform: translate3d(5px, -10px, 10px) rotateX(3deg) rotateY(5deg);
+  }
+  50% {
+    transform: translate3d(0, -20px, 0) rotateX(0deg) rotateY(10deg);
+  }
+  75% {
+    transform: translate3d(-5px, -10px, 10px) rotateX(-3deg) rotateY(5deg);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg);
+  }
+}
+
+.float-3d {
+  animation: float-3d 8s ease-in-out infinite;
+  transform-style: preserve-3d;
+}
+
 /* Mouse trail effect */
 .cursor-trail {
   pointer-events: none;
@@ -185,7 +210,14 @@
   transform: translate(-50%, -50%);
   mix-blend-mode: screen;
   z-index: 9999;
-  transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
+  transition: transform 0.15s ease-out, width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
+  filter: blur(1px);
+}
+
+/* New cursor particles */
+.cursor-particle {
+  mix-blend-mode: screen;
+  filter: blur(1px);
 }
 
 /* Custom scrollbar */
@@ -214,4 +246,60 @@
 
 .card-3d:hover {
   transform: perspective(1000px) rotateX(5deg) rotateY(5deg);
+}
+
+/* Advanced 3D hover effects */
+.hover-card-3d {
+  transform-style: preserve-3d;
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.hover-card-3d:hover {
+  transform: translateZ(20px) rotateX(5deg) rotateY(5deg);
+}
+
+.hover-card-3d .card-content {
+  transform: translateZ(60px);
+  transform-style: preserve-3d;
+}
+
+/* Glowing effects */
+.glow {
+  box-shadow: 0 0 15px rgba(124, 58, 237, 0.5);
+  transition: box-shadow 0.3s ease;
+}
+
+.glow:hover {
+  box-shadow: 0 0 30px rgba(124, 58, 237, 0.8);
+}
+
+/* Shine effect */
+@keyframes shine {
+  0% {
+    background-position: -100px;
+  }
+  40%, 100% {
+    background-position: 300px;
+  }
+}
+
+.shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.shine::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100px;
+  width: 100px;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  animation: shine 3s infinite;
 }

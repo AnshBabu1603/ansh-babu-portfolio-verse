@@ -1,212 +1,184 @@
 
 import { useEffect, useRef } from 'react';
+import * as THREE from 'three';
 
 const Background = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
+  const containerRef = useRef<HTMLDivElement>(null);
+  
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!containerRef.current) return;
 
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    const particles: Particle[] = [];
-    const particleCount = 120;
+    // Set up scene
+    const scene = new THREE.Scene();
     
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    interface Particle {
-      x: number;
-      y: number;
-      z: number;
-      size: number;
-      speedX: number;
-      speedY: number;
-      speedZ: number;
-      opacity: number;
-      hue: number;
-    }
-
-    // Create initial particles with a more vibrant color palette
-    for (let i = 0; i < particleCount; i++) {
-      // Use a wider range of colors for a more cheerful feel
-      const colorRanges = [
-        [260, 310], // Purples and pinks
-        [180, 220], // Cyans and light blues
-        [30, 60],   // Warm yellows and oranges
-      ];
-      
-      const selectedRange = colorRanges[Math.floor(Math.random() * colorRanges.length)];
-      const hue = Math.floor(Math.random() * (selectedRange[1] - selectedRange[0])) + selectedRange[0];
-      
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        z: Math.random() * 1000,
-        size: Math.random() * 3 + 1, // Slightly larger particles
-        speedX: Math.random() * 1 - 0.5,
-        speedY: Math.random() * 1 - 0.5,
-        speedZ: Math.random() * 2,
-        opacity: Math.random() * 0.6 + 0.2, // Higher opacity for more vibrant colors
-        hue: hue, 
-      });
-    }
-
-    // Create mouse position tracker
-    let mouseX = 0;
-    let mouseY = 0;
+    // Camera setup
+    const camera = new THREE.PerspectiveCamera(
+      75,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    );
+    camera.position.z = 5;
     
-    window.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
+    // Create renderer
+    const renderer = new THREE.WebGLRenderer({ 
+      alpha: true, 
+      antialias: true 
     });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setClearColor(0x000000, 0);
+    
+    containerRef.current.appendChild(renderer.domElement);
+    
+    // Create particles
+    const particleCount = 1000;
+    const particles = new THREE.BufferGeometry();
+    const positions = new Float32Array(particleCount * 3);
+    const colors = new Float32Array(particleCount * 3);
+    const sizes = new Float32Array(particleCount);
+    
+    const colorChoices = [
+      new THREE.Color(0x7c3aed), // purple
+      new THREE.Color(0xf472b6), // pink
+      new THREE.Color(0x0ea5e9), // blue
+      new THREE.Color(0x06b6d4), // cyan
+      new THREE.Color(0x10b981), // emerald
+    ];
+    
+    for (let i = 0; i < particleCount; i++) {
+      // Positions - create a sphere of particles
+      const radius = Math.random() * 10 + 5;
+      const phi = Math.acos(-1 + Math.random() * 2);
+      const theta = Math.random() * Math.PI * 2;
+      
+      positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
+      positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
+      positions[i * 3 + 2] = radius * Math.cos(phi);
+      
+      // Random color from our palette
+      const color = colorChoices[Math.floor(Math.random() * colorChoices.length)];
+      colors[i * 3] = color.r;
+      colors[i * 3 + 1] = color.g;
+      colors[i * 3 + 2] = color.b;
+      
+      // Random sizes
+      sizes[i] = Math.random() * 5 + 1;
+    }
+    
+    particles.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    particles.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+    particles.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+    
+    // Shader material for particles
+    const particleMaterial = new THREE.ShaderMaterial({
+      vertexShader: `
+        attribute float size;
+        varying vec3 vColor;
+        void main() {
+          vColor = color;
+          vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+          gl_PointSize = size * (300.0 / -mvPosition.z);
+          gl_Position = projectionMatrix * mvPosition;
+        }
+      `,
+      fragmentShader: `
+        varying vec3 vColor;
+        void main() {
+          float distance = length(gl_PointCoord - vec2(0.5, 0.5));
+          if (distance > 0.5) discard;
+          gl_FragColor = vec4(vColor, smoothstep(0.5, 0.2, distance));
+        }
+      `,
+      transparent: true,
+      vertexColors: true
+    });
+    
+    // Create particle system
+    const particleSystem = new THREE.Points(particles, particleMaterial);
+    scene.add(particleSystem);
+    
+    // Add ambient light
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+    scene.add(ambientLight);
 
-    // Animation function
+    // Mouse interaction
+    const mouse = {
+      x: 0,
+      y: 0,
+    };
+
+    window.addEventListener('mousemove', (e) => {
+      mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+    });
+    
+    // Handle window resize
+    const handleResize = () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    };
+    
+    window.addEventListener('resize', handleResize);
+    
+    // Animation loop
+    let frame = 0;
     const animate = () => {
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.03)'; // More transparent for brighter background
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      frame += 0.005;
       
-      // Create a subtle gradient background - more vibrant
-      const gradient = ctx.createRadialGradient(
-        canvas.width / 2, 
-        canvas.height / 2, 
-        0, 
-        canvas.width / 2, 
-        canvas.height / 2, 
-        canvas.width
-      );
-      gradient.addColorStop(0, 'rgba(30, 30, 50, 0.02)');
-      gradient.addColorStop(1, 'rgba(15, 15, 35, 0.02)');
-      ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      // Rotate the particle system
+      particleSystem.rotation.y = frame * 0.1;
+      particleSystem.rotation.x = Math.sin(frame * 0.1) * 0.2;
+
+      // Subtle movement following cursor
+      particleSystem.rotation.y += (mouse.x * 0.1 - particleSystem.rotation.y) * 0.01;
+      particleSystem.rotation.x += (mouse.y * 0.1 - particleSystem.rotation.x) * 0.01;
       
-      // Update and draw particles
-      for (let i = 0; i < particles.length; i++) {
-        const p = particles[i];
+      // Animate individual particles
+      const positions = particles.attributes.position.array as Float32Array;
+      for (let i = 0; i < particleCount; i++) {
+        const ix = i * 3;
+        const iy = i * 3 + 1;
+        const iz = i * 3 + 2;
         
-        // 3D movement effect
-        p.x += p.speedX;
-        p.y += p.speedY;
-        p.z -= p.speedZ;
+        // Create subtle pulsing/movement
+        const x = positions[ix];
+        const y = positions[iy];
+        const z = positions[iz];
         
-        // Mouse influence - subtle attraction/repulsion
-        const dx = mouseX - p.x;
-        const dy = mouseY - p.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        const maxDist = 300;
-        
-        if (dist < maxDist) {
-          const force = (maxDist - dist) / maxDist;
-          p.speedX += (dx / dist) * force * 0.02;
-          p.speedY += (dy / dist) * force * 0.02;
-          p.speedX = Math.min(Math.max(p.speedX, -1.5), 1.5);
-          p.speedY = Math.min(Math.max(p.speedY, -1.5), 1.5);
-        }
-        
-        // Reset particles if they go out of bounds or too close to viewer
-        if (p.x > canvas.width || p.x < 0 || p.y > canvas.height || p.y < 0 || p.z < 1) {
-          // For reset particles, use the same vibrant color system
-          const colorRanges = [
-            [260, 310], // Purples and pinks
-            [180, 220], // Cyans and light blues
-            [30, 60],   // Warm yellows and oranges
-          ];
-          
-          const selectedRange = colorRanges[Math.floor(Math.random() * colorRanges.length)];
-          const hue = Math.floor(Math.random() * (selectedRange[1] - selectedRange[0])) + selectedRange[0];
-          
-          particles[i] = {
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            z: 1000,
-            size: Math.random() * 3 + 1,
-            speedX: Math.random() * 1 - 0.5,
-            speedY: Math.random() * 1 - 0.5,
-            speedZ: Math.random() * 2,
-            opacity: Math.random() * 0.6 + 0.2,
-            hue: hue,
-          };
-        }
-        
-        // Simulate 3D by adjusting size and opacity based on z-position
-        const scale = 1000 / (1000 + p.z);
-        const size = p.size * scale;
-        const opacity = p.opacity * scale;
-        const x = p.x;
-        const y = p.y;
-        
-        // Draw particle with color
-        ctx.beginPath();
-        ctx.arc(x, y, size, 0, Math.PI * 2);
-        ctx.fillStyle = `hsla(${p.hue}, 90%, 70%, ${opacity})`;
-        ctx.fill();
-        
-        // Draw connections with 3D depth effect
-        for (let j = i + 1; j < particles.length; j++) {
-          const p2 = particles[j];
-          const dx = p2.x - p.x;
-          const dy = p2.y - p.y;
-          const dz = p2.z - p.z;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          const depth = Math.abs(p.z - p2.z);
-          
-          if (dist < 150 && depth < 200) {
-            // Use color blend for the connection based on both particles
-            const avgHue = (p.hue + p2.hue) / 2;
-            const connectionOpacity = (1 - dist / 150) * 0.2 * (1 - depth / 200);
-            
-            ctx.beginPath();
-            ctx.strokeStyle = `hsla(${avgHue}, 85%, 65%, ${connectionOpacity})`;
-            ctx.lineWidth = Math.min(p.size, p2.size) * 0.3;
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.stroke();
-          }
-        }
+        // Apply subtle noise-based movement
+        positions[ix] = x + Math.sin(frame + i * 0.1) * 0.01;
+        positions[iy] = y + Math.cos(frame + i * 0.1) * 0.01;
+        positions[iz] = z + Math.sin(frame + i * 0.1) * 0.01;
       }
+      particles.attributes.position.needsUpdate = true;
       
-      // Add subtle pulse/glow effect - more colorful
-      const time = Date.now() * 0.001;
-      const glowRadius = Math.sin(time * 0.5) * 50 + 150;
-      const hue = (time * 20) % 360; // Cycling through colors
-      const glow = ctx.createRadialGradient(
-        mouseX, 
-        mouseY, 
-        0, 
-        mouseX, 
-        mouseY, 
-        glowRadius
-      );
-      glow.addColorStop(0, `hsla(${hue}, 90%, 70%, 0.08)`);
-      glow.addColorStop(1, `hsla(${hue}, 90%, 70%, 0)`);
-      ctx.fillStyle = glow;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      renderer.render(scene, camera);
       
       requestAnimationFrame(animate);
     };
-
-    const handleResize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-
-    window.addEventListener('resize', handleResize);
+    
     animate();
-
+    
+    // Cleanup function
     return () => {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', () => {});
+      
+      // Dispose of resources
+      particles.dispose();
+      particleMaterial.dispose();
+      renderer.dispose();
+      
+      // Remove the canvas
+      if (containerRef.current?.contains(renderer.domElement)) {
+        containerRef.current.removeChild(renderer.domElement);
+      }
     };
   }, []);
-
-  return (
-    <canvas
-      ref={canvasRef}
-      className="fixed inset-0 w-full h-full z-[-1]"
-    />
-  );
+  
+  return <div ref={containerRef} className="fixed inset-0 w-full h-full z-[-1]" />;
 };
 
 export default Background;
