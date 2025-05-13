@@ -92,7 +92,8 @@ const AchievementsSection = () => {
         </div>
       </div>
 
-      <style jsx="true">{`
+      <style>
+        {`
         @keyframes slide {
           0% {
             transform: translateX(0);
@@ -121,7 +122,8 @@ const AchievementsSection = () => {
           width: 100%;
           padding: 1rem;
         }
-      `}</style>
+        `}
+      </style>
     </div>
   );
 };

@@ -82,31 +82,31 @@ const Index = () => {
       </nav>
       
       <main className="pt-20">
-        <section ref={(el) => (sectionsRef.current.hero = el)} id="hero" className="min-h-screen flex items-center">
+        <section ref={(el) => (sectionsRef.current.hero = el as HTMLDivElement | null)} id="hero" className="min-h-screen flex items-center">
           <HeroSection />
         </section>
         
-        <section ref={(el) => (sectionsRef.current.about = el)} id="about" className="min-h-screen py-16">
+        <section ref={(el) => (sectionsRef.current.about = el as HTMLDivElement | null)} id="about" className="min-h-screen py-16">
           <AboutSection />
         </section>
         
-        <section ref={(el) => (sectionsRef.current.education = el)} id="education" className="min-h-screen py-16">
+        <section ref={(el) => (sectionsRef.current.education = el as HTMLDivElement | null)} id="education" className="min-h-screen py-16">
           <EducationSection />
         </section>
         
-        <section ref={(el) => (sectionsRef.current.skills = el)} id="skills" className="py-16">
+        <section ref={(el) => (sectionsRef.current.skills = el as HTMLDivElement | null)} id="skills" className="py-16">
           <SkillsSection />
         </section>
         
-        <section ref={(el) => (sectionsRef.current.projects = el)} id="projects" className="py-16">
+        <section ref={(el) => (sectionsRef.current.projects = el as HTMLDivElement | null)} id="projects" className="py-16">
           <ProjectsSection />
         </section>
         
-        <section ref={(el) => (sectionsRef.current.achievements = el)} id="achievements" className="py-16">
+        <section ref={(el) => (sectionsRef.current.achievements = el as HTMLDivElement | null)} id="achievements" className="py-16">
           <AchievementsSection />
         </section>
         
-        <section ref={(el) => (sectionsRef.current.experience = el)} id="experience" className="py-16">
+        <section ref={(el) => (sectionsRef.current.experience = el as HTMLDivElement | null)} id="experience" className="py-16">
           <ExperienceSection />
         </section>
       </main>
