@@ -1,4 +1,3 @@
-
 import { useEffect, useState, useRef } from "react";
 import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -25,18 +24,18 @@ const Index = () => {
   const [activeSection, setActiveSection] = useState("hero");
   const [showWelcome, setShowWelcome] = useState(true);
   const sectionsRef = useRef<{ [key: string]: HTMLDivElement | null }>({});
-  
+
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY + 200;
-      
+
       Object.entries(sectionsRef.current).forEach(([key, ref]) => {
         if (ref && scrollPosition >= ref.offsetTop && scrollPosition < ref.offsetTop + ref.offsetHeight) {
           setActiveSection(key);
         }
       });
     };
-    
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -50,7 +49,7 @@ const Index = () => {
       {showWelcome && (
         <WelcomeAnimation onComplete={() => setShowWelcome(false)} />
       )}
-      
+
       <div className="relative bg-gradient-to-b from-gray-900 via-blue-900 to-gray-900 text-white min-h-screen overflow-x-hidden">
         <Background />
         
@@ -76,7 +75,7 @@ const Index = () => {
                 </button>
               ))}
             </div>
-            
+
             <div className="flex items-center space-x-4">
               <a href="mailto:cool.anshlegend123@gmail.com" className="hover:scale-110 transition-transform" aria-label="Email">
                 <Mail className="w-5 h-5" />
@@ -87,37 +86,41 @@ const Index = () => {
             </div>
           </div>
         </nav>
-        
+
+        <Avatar className="h-20 w-20 rounded-full absolute top-1/2 right-6 transform -translate-y-1/2">
+          <img src="/Ansh.jpeg" alt="Ansh Babu" className="object-cover h-full w-full rounded-full" />
+        </Avatar>
+
         <main className="pt-20">
           <section ref={(el) => (sectionsRef.current.hero = el)} id="hero" className="min-h-screen flex items-center">
             <HeroSection />
           </section>
-          
+
           <section ref={(el) => (sectionsRef.current.about = el)} id="about" className="min-h-screen py-16">
             <AboutSection />
           </section>
-          
+
           <section ref={(el) => (sectionsRef.current.education = el)} id="education" className="min-h-screen py-16">
             <EducationSection />
           </section>
-          
+
           <section ref={(el) => (sectionsRef.current.skills = el)} id="skills" className="py-16">
             <SkillsSection />
           </section>
-          
+
           <section ref={(el) => (sectionsRef.current.projects = el)} id="projects" className="py-16">
             <ProjectsSection />
           </section>
-          
+
           <section ref={(el) => (sectionsRef.current.achievements = el)} id="achievements" className="py-16">
             <AchievementsSection />
           </section>
-          
+
           <section ref={(el) => (sectionsRef.current.experience = el)} id="experience" className="py-16">
             <ExperienceSection />
           </section>
         </main>
-        
+
         <Footer />
       </div>
     </>
