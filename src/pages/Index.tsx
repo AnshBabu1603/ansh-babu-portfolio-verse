@@ -58,7 +58,7 @@ const Index = () => {
           <div className="max-w-7xl mx-auto flex justify-between items-center">
             <div className="flex items-center gap-2">
               <Avatar className="h-10 w-10">
-                <img src="/Ansh.jpg" alt="Ansh Babu" />
+                <img src="/Ansh.jpeg" alt="Ansh Babu" />
               </Avatar>
               <span className="font-bold text-xl">Ansh Babu</span>
             </div>
