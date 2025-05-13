@@ -1,6 +1,13 @@
 
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
+import { 
+  Carousel, 
+  CarouselContent, 
+  CarouselItem, 
+  CarouselNext, 
+  CarouselPrevious 
+} from "@/components/ui/carousel";
 
 const AchievementsSection = () => {
   const achievements = [
@@ -40,7 +47,7 @@ const AchievementsSection = () => {
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
         {achievements.map((achievement, index) => (
-          <Card key={index} className="bg-black/30 backdrop-blur-md border border-white/10 text-white overflow-hidden">
+          <Card key={index} className="bg-black/30 backdrop-blur-md border border-white/10 text-white overflow-hidden hover:shadow-[0_0_15px_rgba(139,92,246,0.5)] transition-all duration-300 transform hover:-translate-y-1">
             <div className="aspect-[4/3] w-full overflow-hidden">
               <img 
                 src={achievement.image} 
@@ -60,70 +67,51 @@ const AchievementsSection = () => {
         ))}
       </div>
       
-      <div className="mt-16">
+      <div className="mt-16 relative z-10">
         <h3 className="text-2xl font-bold text-center mb-8">
           <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
             Academic Certifications
           </span>
         </h3>
         
-        <div className="relative mx-auto max-w-4xl">
-          <div className="academic-carousel overflow-hidden">
-            <div className="flex academic-slider">
+        <div className="mx-auto max-w-4xl relative">
+          <Carousel 
+            opts={{
+              align: "center",
+              loop: true,
+              dragFree: true,
+              duration: 40,
+            }}
+            className="relative"
+          >
+            <CarouselContent>
               {academicCertifications.map((cert, index) => (
-                <div key={index} className="academic-slide min-w-full">
-                  <Card className="bg-black/30 backdrop-blur-md border border-white/10 text-white overflow-hidden">
-                    <div className="h-64 overflow-hidden relative mx-auto">
-                      <img 
-                        src={cert.image} 
-                        alt={cert.name} 
-                        className="w-full h-full object-contain" 
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-                    </div>
-                    <CardContent className="p-6 text-center">
-                      <h4 className="text-lg font-semibold text-white">{cert.name}</h4>
-                    </CardContent>
-                  </Card>
-                </div>
+                <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                  <div className="p-1">
+                    <Card className="bg-black/30 backdrop-blur-md border border-white/10 text-white overflow-hidden transform transition-transform hover:scale-105 duration-300 hover:shadow-[0_0_20px_rgba(79,70,229,0.4)]">
+                      <div className="h-64 overflow-hidden relative">
+                        <img 
+                          src={cert.image} 
+                          alt={cert.name} 
+                          className="w-full h-full object-contain p-2" 
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                      </div>
+                      <CardContent className="p-4 text-center">
+                        <h4 className="text-lg font-semibold bg-gradient-to-r from-blue-300 to-purple-400 bg-clip-text text-transparent">
+                          {cert.name}
+                        </h4>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </CarouselItem>
               ))}
-            </div>
-          </div>
+            </CarouselContent>
+            <CarouselPrevious className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 border-none text-white" />
+            <CarouselNext className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 border-none text-white" />
+          </Carousel>
         </div>
       </div>
-
-      <style>
-        {`
-        @keyframes slide {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-800%);
-          }
-        }
-        
-        .academic-carousel {
-          width: 100%;
-          overflow: hidden;
-        }
-        
-        .academic-slider {
-          display: flex;
-          animation: slide 40s linear infinite;
-          width: 800%;
-        }
-        
-        .academic-slider:hover {
-          animation-play-state: paused;
-        }
-        
-        .academic-slide {
-          width: 100%;
-          padding: 1rem;
-        }
-        `}
-      </style>
     </div>
   );
 };

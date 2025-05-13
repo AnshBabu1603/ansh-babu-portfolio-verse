@@ -36,19 +36,12 @@
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
@@ -120,6 +113,40 @@
   animation: float 6s ease-in-out infinite;
 }
 
+@keyframes bounce-slow {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 3s ease-in-out infinite;
+}
+
+@keyframes rotate-y {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+.rotate-y {
+  animation: rotate-y 10s linear infinite;
+}
+
+.hover\:rotate-y-10:hover {
+  transform: perspective(1000px) rotateY(10deg);
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
 .glass-card {
   backdrop-filter: blur(16px);
   background: rgba(255, 255, 255, 0.05);
@@ -147,6 +174,20 @@
   -webkit-text-fill-color: transparent;
 }
 
+/* Mouse trail effect */
+.cursor-trail {
+  pointer-events: none;
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(139, 92, 246, 0.7);
+  transform: translate(-50%, -50%);
+  mix-blend-mode: screen;
+  z-index: 9999;
+  transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
@@ -163,4 +204,14 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(180deg, #3c33cc, #7c4bf1);
+}
+
+/* 3D Effect for cards */
+.card-3d {
+  transform: perspective(1000px) rotateX(0) rotateY(0);
+  transition: transform 0.5s;
+}
+
+.card-3d:hover {
+  transform: perspective(1000px) rotateX(5deg) rotateY(5deg);
 }
