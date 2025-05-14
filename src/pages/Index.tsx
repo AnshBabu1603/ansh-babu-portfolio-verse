@@ -24,7 +24,9 @@ import WelcomeAnimation from "@/components/WelcomeAnimation";
 const Index = () => {
   const [activeSection, setActiveSection] = useState("hero");
   const [showWelcome, setShowWelcome] = useState(true);
-  const sectionsRef = useRef<{ [key: string]: HTMLDivElement | null }>({});
+  
+  // Fix: Properly type the ref object to use HTMLDivElement instead of HTMLElement
+  const sectionsRef = useRef<Record<string, HTMLDivElement | null>>({});
 
   useEffect(() => {
     const handleScroll = () => {
