@@ -67,7 +67,7 @@ const EducationSection = () => {
                   <div className="flex items-start gap-4">
                     <div className="rounded-full bg-gradient-to-r from-blue-500 to-purple-500 p-1">
                       <div className="bg-black/50 rounded-full p-2">
-                        <img src="/toolroomlogo.jpg" alt="JGTR Logo" className="w-16 h-16 object-contain" />
+                        <img src="/toolroomlogo.png" alt="JGTR Logo" className="w-16 h-16 object-contain" />
                       </div>
                     </div>
                     <div className="space-y-2">
