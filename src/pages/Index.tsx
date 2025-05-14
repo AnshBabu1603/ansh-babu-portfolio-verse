@@ -92,9 +92,9 @@ const Index = () => {
           </div>
         </nav>
 
-        <Avatar className="h-20 w-20 rounded-full absolute top-1/2 right-6 transform -translate-y-1/2">
+{/*         <Avatar className="h-20 w-20 rounded-full absolute top-1/2 right-6 transform -translate-y-1/2">
           <img src="/Ansh1.jpeg" alt="Ansh Babu" className="object-cover h-full w-full rounded-full" />
-        </Avatar>
+        </Avatar> */}
 
         <main className="pt-20">
           <section 
