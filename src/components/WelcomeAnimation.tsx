@@ -94,10 +94,6 @@ const WelcomeAnimation = ({ onComplete }: { onComplete: () => void }) => {
           {/* Background floating elements */}
           <div ref={particlesRef} className="absolute inset-0 overflow-hidden" />
           
-          {/* Dramatic lighting effect */}
-          <div className="absolute top-1/3 left-1/2 w-96 h-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-indigo-500/20 blur-[100px]" />
-          <div className="absolute bottom-1/3 right-1/3 w-64 h-64 rounded-full bg-blue-500/20 blur-[80px]" />
-          
           {/* 3D text content with perspective */}
           <div 
             ref={textRef}
@@ -113,12 +109,10 @@ const WelcomeAnimation = ({ onComplete }: { onComplete: () => void }) => {
             >
               <h1 className="text-5xl md:text-7xl font-bold text-center mb-3"
                   style={{ transform: 'translateZ(50px)' }}>
-                <span className="bg-gradient-to-r from-blue-400 via-indigo-500 to-purple-500 bg-clip-text text-transparent animated-gradient">
+                <span className="text-white">
                   Welcome to Ansh's World
                 </span>
               </h1>
-              
-              <div className="absolute inset-0 bg-blue-500/5 blur-xl -z-10" />
               
               <motion.div
                 initial={{ opacity: 0, y: 30, rotateX: -30 }}
@@ -129,7 +123,6 @@ const WelcomeAnimation = ({ onComplete }: { onComplete: () => void }) => {
               >
                 <span className="relative">
                   Let's Get to Know Him Well
-                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-blue-400 to-purple-500 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
                 </span>
               </motion.div>
             </motion.div>

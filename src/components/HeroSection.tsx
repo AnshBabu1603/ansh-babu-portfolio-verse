@@ -1,3 +1,4 @@
+
 import { useEffect, useRef, useState } from 'react';
 import { Avatar } from "@/components/ui/avatar";
 import { motion, useScroll, useTransform } from "framer-motion";
@@ -45,7 +46,7 @@ const HeroSection = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <h1 className="text-4xl md:text-6xl font-bold glow-text">
+          <h1 className="text-4xl md:text-6xl font-bold">
             ANSH BABU
           </h1>
           

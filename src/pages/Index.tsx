@@ -20,6 +20,7 @@ import ExperienceSection from "@/components/ExperienceSection";
 import Footer from "@/components/Footer";
 import Background from "@/components/Background";
 import WelcomeAnimation from "@/components/WelcomeAnimation";
+import FloatingElements from "@/components/FloatingElements";
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState("hero");
@@ -55,6 +56,7 @@ const Index = () => {
 
       <div className="relative bg-gradient-to-b from-gray-900 via-blue-900 to-gray-900 text-white min-h-screen overflow-x-hidden">
         <Background />
+        <FloatingElements />
         
         <nav className="fixed top-0 left-0 right-0 z-50 bg-black/30 backdrop-blur-md py-4 px-6">
           <div className="max-w-7xl mx-auto flex justify-between items-center">
@@ -159,3 +161,4 @@ const Index = () => {
 };
 
 export default Index;
+
