@@ -1,3 +1,4 @@
+
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
@@ -27,37 +28,41 @@ const Background = () => {
     
     containerRef.current.appendChild(renderer.domElement);
     
-    // Create enhanced particle system
-    const particleCount = 1500;
+    // Create enhanced particle system with professional look
+    const particleCount = 2000;
     const particles = new THREE.BufferGeometry();
     const positions = new Float32Array(particleCount * 3);
     const colors = new Float32Array(particleCount * 3);
     const sizes = new Float32Array(particleCount);
     
+    // Professional color palette with rich contrast
     const colorPalette = [
-      new THREE.Color(0x7c3aed), // purple
-      new THREE.Color(0xf472b6), // pink
-      new THREE.Color(0x0ea5e9), // blue
+      new THREE.Color(0x7c3aed), // deep purple
+      new THREE.Color(0x0ea5e9), // vivid blue
       new THREE.Color(0x06b6d4), // cyan
-      new THREE.Color(0x10b981), // emerald
+      new THREE.Color(0x3b82f6), // blue
+      new THREE.Color(0x1e40af), // dark blue
     ];
     
-    // Create galaxy-like particle distribution
+    // Create dynamic 3D galaxy formation
     for (let i = 0; i < particleCount; i++) {
+      // Spiral galaxy formation
       const radius = Math.random() * 15 + 5;
-      const spinAngle = radius * 0.3;
-      const branchAngle = (i % 3) * Math.PI * 2 / 3;
+      const spinAngle = radius * 0.4; // Tighter spiral
+      const branchAngle = (i % 5) * Math.PI * 2 / 5; // 5 spiral arms
       
-      const randomX = Math.pow(Math.random(), 3) * (Math.random() < 0.5 ? 1 : -1);
-      const randomY = Math.pow(Math.random(), 3) * (Math.random() < 0.5 ? 1 : -1);
-      const randomZ = Math.pow(Math.random(), 3) * (Math.random() < 0.5 ? 1 : -1);
+      // Add randomness for natural look
+      const randomX = Math.pow(Math.random(), 3) * (Math.random() < 0.5 ? 1 : -1) * 2;
+      const randomY = Math.pow(Math.random(), 3) * (Math.random() < 0.5 ? 1 : -1) * 2;
+      const randomZ = Math.pow(Math.random(), 3) * (Math.random() < 0.5 ? 1 : -1) * 2;
 
       positions[i * 3] = Math.cos(branchAngle + spinAngle) * radius + randomX;
       positions[i * 3 + 1] = randomY * 2;
       positions[i * 3 + 2] = Math.sin(branchAngle + spinAngle) * radius + randomZ;
       
-      // Dynamic color mixing
-      const color = colorPalette[Math.floor(Math.random() * colorPalette.length)];
+      // Dynamic color mixing - concentrated by spiral arm
+      const colorIndex = Math.floor(i / particleCount * colorPalette.length);
+      const color = colorPalette[Math.min(colorIndex, colorPalette.length - 1)];
       colors[i * 3] = color.r;
       colors[i * 3 + 1] = color.g;
       colors[i * 3 + 2] = color.b;
@@ -70,7 +75,7 @@ const Background = () => {
     particles.setAttribute('color', new THREE.BufferAttribute(colors, 3));
     particles.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
     
-    // Enhanced shader material
+    // Professional-grade shader material
     const particleMaterial = new THREE.ShaderMaterial({
       vertexShader: `
         attribute float size;
@@ -81,11 +86,12 @@ const Background = () => {
           vColor = color;
           vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
           
-          // Animate particles
-          float wave = sin(time * 0.5 + mvPosition.x * 0.02 + mvPosition.y * 0.02) * 0.1;
+          // Enhanced animation with dynamic waves
+          float wave = sin(time * 0.6 + mvPosition.x * 0.03 + mvPosition.y * 0.03) * 0.15;
           mvPosition.xyz += normalize(mvPosition.xyz) * wave;
           
-          gl_PointSize = size * (300.0 / -mvPosition.z) * (1.0 + sin(time + position.x * 0.5) * 0.2);
+          // Perspective size adjustment with pulse effect
+          gl_PointSize = size * (350.0 / -mvPosition.z) * (1.0 + sin(time * 0.5 + position.x * 0.5) * 0.3);
           gl_Position = projectionMatrix * mvPosition;
         }
       `,
@@ -96,9 +102,9 @@ const Background = () => {
           float distance = length(gl_PointCoord - vec2(0.5, 0.5));
           if (distance > 0.5) discard;
           
-          // Soft particle effect
+          // Enhanced glow effect for professional look
           float strength = 1.0 - (distance * 2.0);
-          strength = pow(strength, 3.0);
+          strength = pow(strength, 2.5);
           
           gl_FragColor = vec4(vColor, strength);
         }
@@ -113,15 +119,24 @@ const Background = () => {
     const particleSystem = new THREE.Points(particles, particleMaterial);
     scene.add(particleSystem);
     
-    // Add ambient and point lights
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+    // Add dramatic lighting with shadows
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.15); // Dimmer ambient for dramatic effect
     scene.add(ambientLight);
 
-    const pointLight = new THREE.PointLight(0x7c3aed, 1);
-    pointLight.position.set(2, 3, 4);
-    scene.add(pointLight);
+    // Add multiple point lights for dramatic illumination
+    const pointLight1 = new THREE.PointLight(0x3b82f6, 1.2); // Blue light
+    pointLight1.position.set(2, 3, 4);
+    scene.add(pointLight1);
+    
+    const pointLight2 = new THREE.PointLight(0x7c3aed, 1); // Purple light
+    pointLight2.position.set(-3, 1, 3);
+    scene.add(pointLight2);
+    
+    const pointLight3 = new THREE.PointLight(0x1e40af, 0.8); // Dark blue light
+    pointLight3.position.set(0, -2, 3);
+    scene.add(pointLight3);
 
-    // Interactive mouse movement
+    // Interactive mouse movement with enhanced physics
     const mouse = {
       x: 0,
       y: 0,
@@ -151,38 +166,48 @@ const Background = () => {
     
     window.addEventListener('resize', handleResize);
     
-    // Animation loop
+    // Enhanced animation loop with multiple effects
     let frame = 0;
     const animate = () => {
-      frame += 0.002;
+      frame += 0.004; // Slower, more professional motion
       
       // Update particle system
       particleMaterial.uniforms.time.value = frame;
       
-      // Rotate based on mouse movement
-      particleSystem.rotation.y += (mouse.velocityX * 0.5 + 0.002);
-      particleSystem.rotation.x += (mouse.velocityY * 0.5);
+      // Rotate based on mouse movement with inertia
+      particleSystem.rotation.y += (mouse.velocityX * 0.3 + 0.001);
+      particleSystem.rotation.x += (mouse.velocityY * 0.3);
       
-      // Add subtle wobble
-      particleSystem.position.y = Math.sin(frame) * 0.2;
+      // Add subtle 3D pulsing movement
+      particleSystem.position.y = Math.sin(frame * 0.5) * 0.3;
+      particleSystem.position.z = Math.cos(frame * 0.3) * 0.2;
       
-      // Dampen velocities
-      mouse.velocityX *= 0.95;
-      mouse.velocityY *= 0.95;
+      // Dampen velocities for smoother motion
+      mouse.velocityX *= 0.92;
+      mouse.velocityY *= 0.92;
       
-      // Animate individual particles
+      // Animate individual particles for enhanced 3D effect
       const positions = particles.attributes.position.array as Float32Array;
       for (let i = 0; i < particleCount; i++) {
         const ix = i * 3;
         const iy = i * 3 + 1;
         const iz = i * 3 + 2;
         
-        // Create organic movement
-        positions[ix] += Math.sin(frame + i * 0.1) * 0.02;
-        positions[iy] += Math.cos(frame + i * 0.1) * 0.02;
-        positions[iz] += Math.sin(frame + i * 0.1) * 0.02;
+        // Create subtle organic movement based on position
+        const offsetX = Math.sin((frame + positions[ix] * 0.05) * 0.5) * 0.03;
+        const offsetY = Math.cos((frame + positions[iy] * 0.05) * 0.5) * 0.03;
+        const offsetZ = Math.sin((frame + positions[iz] * 0.05) * 0.5) * 0.03;
+        
+        positions[ix] += offsetX;
+        positions[iy] += offsetY;
+        positions[iz] += offsetZ;
       }
       particles.attributes.position.needsUpdate = true;
+      
+      // Add subtle camera movement for dynamic feel
+      camera.position.x = Math.sin(frame * 0.3) * 0.5;
+      camera.position.y = Math.cos(frame * 0.4) * 0.3;
+      camera.lookAt(scene.position);
       
       renderer.render(scene, camera);
       requestAnimationFrame(animate);
