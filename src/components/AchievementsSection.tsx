@@ -36,7 +36,14 @@ const AchievementsSection = () => {
     { name: "Introduction to Hardware and Operating Systems", image: "/Hardware_and_OS.jpg" },
     { name: "Fundamentals of Network Communication", image: "/Network_communications.jpg" },
     { name: "Digital Systems: From Logic Gates to Processors", image: "/Digital_systems.jpg" },
-    { name: "Computer Communications", image: "/Computer_communications.jpg" }
+    { name: "Computer Communications", image: "/Computer_communications.jpg" },
+    { name: "Automation Developer Associate Training (v2024.10) for ICT Academy Cohort 2", image: "/cert_uipath.jpg" },
+    { name: "Build Generative AI Apps and Solutions with No-Code Tools", image: "/cert_genai.jpg" },
+    { name: "ChatGPT Made Easy: AI Essentials for Beginners", image: "/cert_chatgpt.jpg" },
+    { name: "Master Generative AI & Generative AI tools (ChatGPT & More)", image: "/cert_master_genai.jpg" },
+    { name: "Computational Theory: Language Principle & Finite Automata Theory", image: "/cert_automata.jpg" },
+    { name: "Certified Essentials Automation Professional by Automation Anywhere", image: "/cert_aa.jpg" },
+    { name: "Cloud Computing", image: "/cert_cloud.jpg" }
   ];
 
   return (
@@ -47,12 +54,12 @@ const AchievementsSection = () => {
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
         {achievements.map((achievement, index) => (
-          <Card key={index} className="bg-black/30 backdrop-blur-md border border-white/10 text-white overflow-hidden hover:shadow-[0_0_15px_rgba(139,92,246,0.5)] transition-all duration-300 transform hover:-translate-y-1">
+          <Card key={index} className="bg-black/30 backdrop-blur-md border border-white/10 text-white overflow-hidden hover:bg-black/40 transition-all duration-300">
             <div className="aspect-[4/3] w-full overflow-hidden">
               <img 
                 src={achievement.image} 
                 alt={achievement.title} 
-                className="w-full h-full object-cover transition-transform hover:scale-110 duration-300" 
+                className="w-full h-full object-cover" 
               />
             </div>
             <CardContent className="p-6">
@@ -88,7 +95,7 @@ const AchievementsSection = () => {
               {academicCertifications.map((cert, index) => (
                 <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
                   <div className="p-1">
-                    <Card className="bg-black/30 backdrop-blur-md border border-white/10 text-white overflow-hidden transform transition-transform hover:scale-105 duration-300 hover:shadow-[0_0_20px_rgba(79,70,229,0.4)]">
+                    <Card className="bg-black/30 backdrop-blur-md border border-white/10 text-white overflow-hidden transition-all duration-300 hover:bg-black/40">
                       <div className="h-64 overflow-hidden relative">
                         <img 
                           src={cert.image} 
@@ -98,7 +105,7 @@ const AchievementsSection = () => {
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
                       </div>
                       <CardContent className="p-4 text-center">
-                        <h4 className="text-lg font-semibold bg-gradient-to-r from-blue-300 to-purple-400 bg-clip-text text-transparent">
+                        <h4 className="text-sm font-semibold bg-gradient-to-r from-blue-300 to-purple-400 bg-clip-text text-transparent">
                           {cert.name}
                         </h4>
                       </CardContent>
