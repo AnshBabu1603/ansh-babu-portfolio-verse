@@ -15,7 +15,7 @@ import Footer from "@/components/Footer";
 const Index = () => {
   const [activeSection, setActiveSection] = useState("hero");
   
-  const sectionsRef = useRef<Record<string, HTMLDivElement | null>>({});
+  const sectionsRef = useRef<Record<string, HTMLElement | null>>({});
 
   useEffect(() => {
     const handleScroll = () => {
