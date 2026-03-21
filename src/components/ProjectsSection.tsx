@@ -16,6 +16,24 @@ const ProjectsSection = () => {
       description: "Created a novel music recommendation system that analyzes facial expressions to detect emotions and suggests music based on the user's current emotional state. The system utilizes computer vision techniques for real-time emotion recognition.",
       link: "https://emotive-melody-muse-611b98d7.vercel.app/",
       tech: ["Computer Vision", "Machine Learning", "Emotion Detection", "Python"]
+    },
+    {
+      title: "Retrieval Augmented Chatbot for University Examination Cell",
+      description: "The system answers student queries related to exams (Mid Term Test, End Term, Reappear, holidays) using a Retrieval-Augmented Generation (RAG) approach.",
+      link: "https://academic-guide-ai.vercel.app/",
+      tech: ["RAG", "NLP", "LLM", "Python", "Vector Database"]
+    },
+    {
+      title: "AI-Powered Detection of Rainfall Distribution Patterns",
+      description: "This platform uses unsupervised machine learning models (KMeans & DBSCAN) to identify rainfall regimes and detect extreme climate patterns across Indian districts.",
+      link: "https://climate-insights-hub.vercel.app/",
+      tech: ["KMeans", "DBSCAN", "Unsupervised Learning", "Python", "Data Analysis"]
+    },
+    {
+      title: "Diabetes Risk Predictor",
+      description: "An advanced AI-powered tool for assessing diabetes risk based on clinical parameters.",
+      link: "",
+      tech: ["Machine Learning", "Healthcare AI", "Python", "Classification"]
     }
   ];
 
@@ -29,7 +47,7 @@ const ProjectsSection = () => {
         {projects.map((project, index) => (
           <Card 
             key={index} 
-            className="bg-black/30 backdrop-blur-md border border-white/10 text-white overflow-hidden flex flex-col h-full transform transition-all hover:scale-105 hover:bg-black/40 duration-300"
+            className="bg-black/30 backdrop-blur-md border border-white/10 text-white overflow-hidden flex flex-col h-full transition-all hover:bg-black/40 duration-300"
           >
             <div className="h-2 bg-gradient-to-r from-blue-500 to-purple-500"></div>
             <CardContent className="p-6 flex-grow">

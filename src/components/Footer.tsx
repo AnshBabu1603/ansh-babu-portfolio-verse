@@ -1,5 +1,5 @@
 
-import { Linkedin, Mail, ArrowRight } from "lucide-react";
+import { Linkedin, Mail } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -10,19 +10,19 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="text-center md:text-left">
             <h2 className="text-2xl font-bold mb-2">Ansh Babu</h2>
-            <p className="text-gray-400">Computer Science Engineering Student & Machine Learning Enthusiast</p>
+            <p className="text-gray-400">Aspiring AI/ML Engineer & Machine Learning Enthusiast</p>
           </div>
           
           <div className="flex gap-6">
             <a 
-              href="mailto:cool.anshlegend123@gmail.com"
+              href="mailto:raj.anshbabu.ab@gmail.com"
               className="bg-white/10 hover:bg-white/20 h-10 w-10 rounded-full flex items-center justify-center transition-colors"
               aria-label="Email"
             >
               <Mail className="h-5 w-5" />
             </a>
             <a 
-              href="https://www.linkedin.com/in/ansh-babu-281419230/"
+              href="https://www.linkedin.com/in/anshbabu"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-white/10 hover:bg-white/20 h-10 w-10 rounded-full flex items-center justify-center transition-colors"

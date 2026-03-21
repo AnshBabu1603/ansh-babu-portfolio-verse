@@ -15,22 +15,22 @@ const AboutSection = () => {
           <CardContent className="pt-6">
             <h3 className="text-2xl font-semibold mb-4">Profile</h3>
             <p className="text-gray-300 mb-6">
-              An aspiring AI/ML Engineer fascinated in Artificial Intelligence and Automation. 
-              My passion lies in Machine Learning, Deep Learning, Computer Vision and Critical thinking 
-              through Data Structures and Algorithms. A Geek for exploring new skills and enhancing my existing ones.
+              An aspiring AI/ML Engineer fascinated in Machine Learning and Automation. 
+              My passion lies in solving problems in Manufacturing and Production sector through AI and Machine Learning concepts, 
+              Deep Learning and Computer Vision. I always like to explore new technologies and skills.
             </p>
             
             <div className="space-y-4">
               <div className="flex gap-4 items-center">
                 <Mail className="h-5 w-5 text-blue-400" />
-                <a href="mailto:cool.anshlegend123@gmail.com" className="text-gray-300 hover:text-white">
-                  cool.anshlegend123@gmail.com
+                <a href="mailto:raj.anshbabu.ab@gmail.com" className="text-gray-300 hover:text-white">
+                  raj.anshbabu.ab@gmail.com
                 </a>
               </div>
               <div className="flex gap-4 items-center">
                 <Linkedin className="h-5 w-5 text-blue-400" />
-                <a href="https://www.linkedin.com/in/ansh-babu-281419230/" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white">
-                  linkedin.com/in/ansh-babu-281419230/
+                <a href="https://www.linkedin.com/in/anshbabu" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white">
+                  linkedin.com/in/anshbabu
                 </a>
               </div>
             </div>
@@ -50,6 +50,7 @@ const AboutSection = () => {
                   <li>Exploring Novel Techniques in Machine Learning</li>
                   <li>Computer Vision</li>
                   <li>Deep Learning Applications</li>
+                  <li>Manufacturing and Production</li>
                 </ul>
               </div>
               
