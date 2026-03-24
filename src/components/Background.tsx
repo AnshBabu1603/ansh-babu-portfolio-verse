@@ -4,7 +4,7 @@ const Background = () => {
       position: "fixed",
       width: "100%",
       height: "100%",
-      background: "linear-gradient(135deg, #0f172a, #1e3a8a, #9333ea)",
+      backgroundColor: "#1e3a8a", // soft dark blue
       zIndex: -1
     }} />
   );
