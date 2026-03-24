@@ -1,12 +1,12 @@
 const Background = () => {
   return (
-    <div style={{ 
+    <div style={{
       position: "fixed",
       top: 0,
       left: 0,
       width: "100%",
       height: "100%",
-      backgroundColor: "#0f172a",
+      background: "linear-gradient(135deg, #667eea, #764ba2, #6a11cb)",
       zIndex: -1
     }} />
   );
