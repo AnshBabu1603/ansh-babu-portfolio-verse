@@ -34,7 +34,7 @@ const projects = [
   {
     title: "Diabetes Risk Predictor",
     description: "An advanced AI-powered tool for assessing diabetes risk based on clinical parameters.",
-    link: "",
+    link: "https://diabetespredictor-ruby.vercel.app/",
     tech: ["Machine Learning", "Healthcare AI", "Python", "Classification"],
   },
 ];

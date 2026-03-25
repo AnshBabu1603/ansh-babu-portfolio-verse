@@ -17,7 +17,7 @@ const Index = () => {
           <img
             src="/Ansh_new.jpg"
             alt="Ansh Babu"
-            className="w-40 h-40 rounded-full object-cover mx-auto mb-6 border-4 border-border"
+            className="w-40 h-40 rounded-full object-cover object-[center_30%] mx-auto mb-6 border-4 border-border"
           />
           <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-2">Ansh Babu</h1>
           <p className="text-lg text-primary font-medium mb-6">AI/ML Engineer</p>
