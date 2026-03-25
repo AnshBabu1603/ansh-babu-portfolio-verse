@@ -12,6 +12,7 @@ import SkillsPage from "./pages/SkillsPage";
 import AchievementsPage from "./pages/AchievementsPage";
 import CertificationsPage from "./pages/CertificationsPage";
 import HackathonsPage from "./pages/HackathonsPage";
+import ResumePage from "./pages/ResumePage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
